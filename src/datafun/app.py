@@ -93,11 +93,10 @@ and write the statistics to a text file.
 """
 
 CSV_INPUT: Final[Path] = RAW_DIR / "2020_happiness.csv"
-CSV_OUTPUT: Final[Path] = PROCESSED_DIR / "csv_ladder_score_stats.txt"
-CSV_COLUMN: Final[str] = "Ladder score"  # CUSTOM
+CSV_OUTPUT: Final[Path] = PROCESSED_DIR / "csv_healthy_life_expectancy_stats.txt"
+CSV_COLUMN: Final[str] = "Healthy life expectancy"  # CUSTOM
 WHY_CSV_COLUMN: Final[str] = r"""
-The ladder score is the survey's overall happiness measure,
-so its distribution is the natural first summary of this dataset.
+Healthy life expectancy provides a measure of health across the countries, so I chose this column to explore its distribution within the data set.
 """
 
 # === JSON: COUNT RECORDS BY A CATEGORY ===
