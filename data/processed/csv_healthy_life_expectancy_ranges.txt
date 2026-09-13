@@ -1,0 +1,6 @@
+Healthy Life Expectancy Distribution
+===================================
+
+Under 60 years: 43 countries (28.1%)
+60 to 69.9 years: 76 countries (49.7%)
+70 years and above: 34 countries (22.2%)

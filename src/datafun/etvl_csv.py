@@ -188,3 +188,93 @@ def run_etvl_csv(
 
     log.info("CSV: wrote %s", output_file)
     log.info("CSV: END")
+
+
+# === CUSTOM PHASE 5 PIPELINE ===
+def transform_life_expectancy_ranges(values: list[float]) -> dict[str, int]:
+    """Group healthy life expectancy values into ranges."""
+    ranges = {
+        "Under 60 years": 0,
+        "60 to 69.9 years": 0,
+        "70 years and above": 0,
+    }
+
+    for value in values:
+        if value < 60:
+            ranges["Under 60 years"] += 1
+        elif value < 70:
+            ranges["60 to 69.9 years"] += 1
+        else:
+            ranges["70 years and above"] += 1
+
+    return ranges
+
+
+def verify_life_expectancy_ranges(
+    *,
+    ranges: dict[str, int],
+    total_values: int,
+) -> None:
+    """Verify that every value was placed into a range."""
+    if sum(ranges.values()) != total_values:
+        raise ValueError("Not all life expectancy values were categorized.")
+
+
+def load_life_expectancy_report(
+    *,
+    ranges: dict[str, int],
+    total_values: int,
+    out_path: Path,
+) -> None:
+    """Write healthy life expectancy range results to a text file."""
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+
+    with out_path.open("w", encoding="utf-8") as file:
+        file.write("Healthy Life Expectancy Distribution\n")
+        file.write("=" * 35 + "\n\n")
+
+        for range_name, count in ranges.items():
+            percent = (count / total_values) * 100
+            file.write(f"{range_name}: {count} countries ({percent:.1f}%)\n")
+
+
+def run_etvl_csv_ranges(
+    *,
+    input_file: Path,
+    output_file: Path,
+    column_name: str,
+    log: logging.Logger,
+) -> None:
+    """Analyze healthy life expectancy by grouping countries into ranges."""
+    log.info("CSV CUSTOM: START")
+
+    # E: EXTRACT
+    rows = extract_csv_rows(
+        file_path=input_file,
+        log=log,
+    )
+
+    # T: Transform
+    values = transform_column_to_floats(
+        rows=rows,
+        column_name=column_name,
+        log=log,
+    )
+
+    ranges = transform_life_expectancy_ranges(values)
+
+    # V: Verify
+    verify_life_expectancy_ranges(
+        ranges=ranges,
+        total_values=len(values),
+    )
+
+    # L: Load
+    load_life_expectancy_report(
+        ranges=ranges,
+        total_values=len(values),
+        out_path=output_file,
+    )
+
+    log.info("CSV CUSTOM: wrote %s", output_file)
+    log.info("CSV CUSTOM: END")

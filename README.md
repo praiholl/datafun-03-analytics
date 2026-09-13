@@ -21,7 +21,15 @@ Each example is a professional Python project.
 
 ## About This Project
 
-This project was completed by Holly Praiswater as part of my work in data analytics. I am using this project to explore how Python can work with different file types and data pipelines.
+This project was completed by Holly Praiswater as part of my work in data analytics. The project uses Python and the Extract, Transform, Verify, Load process to work with multiple types of data files.
+
+For my custom analysis, I used the World Happiness dataset to explore how countries are distributed across different healthy life expectancy ranges. I grouped 153 countries into three categories:
+
+- Under 60 years: 43 countries (28.1%)
+- 60 to 69.9 years: 76 countries (49.7%)
+- 70 years and above: 34 countries (22.2%)
+
+The largest group was the 60 to 69.9 year range, which included almost half of the countries in the dataset.
 
 ## Motivation
 

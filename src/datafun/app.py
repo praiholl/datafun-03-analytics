@@ -66,7 +66,7 @@ from typing import Final
 
 from datafun_toolkit.logger import get_logger, log_header, log_path
 
-from datafun.etvl_csv import run_etvl_csv
+from datafun.etvl_csv import run_etvl_csv, run_etvl_csv_ranges
 from datafun.etvl_json import run_etvl_json
 from datafun.etvl_text import run_etvl_text
 from datafun.etvl_xlsx import run_etvl_xlsx
@@ -97,6 +97,12 @@ CSV_OUTPUT: Final[Path] = PROCESSED_DIR / "csv_healthy_life_expectancy_stats.txt
 CSV_COLUMN: Final[str] = "Healthy life expectancy"  # CUSTOM
 WHY_CSV_COLUMN: Final[str] = r"""
 Healthy life expectancy provides a measure of health across the countries, so I chose this column to explore its distribution within the data set.
+"""
+
+CSV_RANGE_OUTPUT: Final[Path] = PROCESSED_DIR / "csv_healthy_life_expectancy_ranges.txt"
+
+WHY_CSV_RANGES: Final[str] = r"""
+I grouped healthy life expectancy into three ranges to see how the countries in the World Happiness dataset are distributed across different levels of healthy life expectancy.
 """
 
 # === JSON: COUNT RECORDS BY A CATEGORY ===
@@ -210,6 +216,18 @@ def main() -> None:
     run_etvl_csv(
         input_file=CSV_INPUT,
         output_file=CSV_OUTPUT,
+        column_name=CSV_COLUMN,
+        log=LOG,
+    )
+
+    LOG.info("===================================")
+    LOG.info("CUSTOM CSV pipeline")
+    LOG.info("===================================")
+
+    LOG.info(f"Why: {WHY_CSV_RANGES}")
+    run_etvl_csv_ranges(
+        input_file=CSV_INPUT,
+        output_file=CSV_RANGE_OUTPUT,
         column_name=CSV_COLUMN,
         log=LOG,
     )
