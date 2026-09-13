@@ -58,3 +58,17 @@ Each pipeline follows the
   verifies the results,
   and writes the summary to a text file.
   (TODO: link or disply results).
+
+## Custom Analysis: Healthy Life Expectancy
+
+For my custom analysis, I used the World Happiness dataset to explore how countries are distributed across different healthy life expectancy ranges.
+
+I grouped the 153 countries into three categories:
+
+- Under 60 years: 43 countries (28.1%)
+- 60 to 69.9 years: 76 countries (49.7%)
+- 70 years and above: 34 countries (22.2%)
+
+The largest group was the 60 to 69.9 year range, which included almost half of the countries in the dataset.
+
+For this analysis, the CSV pipeline extracts the healthy life expectancy values, transforms them into three ranges, verifies that all values were categorized, and loads the results into a new text report.
